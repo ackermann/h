@@ -38,21 +38,21 @@ describe('h', function () {
     var identity = 'fake-identity';
     fakeJwtHelper.isTokenExpired.withArgs(identity).returns(false);
     fakeJwtHelper.decodeToken.withArgs(identity).returns({sub: 'pandora'});
-    var userid = auth.userid(identity);
+    userid = auth.userid(identity);
     assert.equal(userid, 'pandora');
   });
 
   it('returns null for an expired jwt', function () {
     var identity = 'fake-identity';
     fakeJwtHelper.isTokenExpired.withArgs(identity).returns(true);
-    var userid = auth.userid(identity);
+    userid = auth.userid(identity);
     assert.isNull(userid);
   });
 
   it('returns null for an invalid jwt', function () {
     var identity = 'fake-identity';
     fakeJwtHelper.decodeToken.withArgs(identity).throws('Error');
-    var userid = auth.userid(identity);
+    userid = auth.userid(identity);
     assert.isNull(userid);
   });
 });
