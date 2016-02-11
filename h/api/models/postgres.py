@@ -9,6 +9,7 @@ Classes to represent objects managed by the Annotations API.
 from __future__ import unicode_literals
 
 import datetime
+import logging
 
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql as pg
@@ -17,6 +18,9 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from h.api import uri
 from h.api.db import Base
 from h.api.db import types
+from h._compat import text_type
+
+log = logging.getLogger(__name__)
 
 
 class Timestamps(object):
@@ -86,6 +90,38 @@ class Document(Base, Timestamps):
     def __repr__(self):
         return '<Document %s>' % self.id
 
+    @classmethod
+    def get_or_create_by_uris(cls, claimant_uri, uris):
+        """
+        Get or create a document from a claimant uri and a set of uris.
+
+        It tries to find a document based on he claimant and the set of uris.
+        If none can be found it will return a new document with the claimant
+        uri as its only document uri as a self-claim.
+        """
+
+        normalized_claimant = text_type(uri.normalize(claimant_uri))
+        query_uris = ([normalized_claimant] +
+                      [text_type(uri.normalize(u)) for u in uris])
+
+        uris = DocumentURI.query.filter(
+                DocumentURI.uri_normalized.in_(query_uris)
+                ).distinct(DocumentURI.document_id)
+        if uris.count() > 1:
+            log.warn("Found multiple document ids for a set of urls. "
+                     "urls: {}".format(normalized_uris))
+
+        docuri = uris.first()
+        if docuri is not None:
+            return docuri.document
+
+        doc = Document()
+        docuri = DocumentURI(document=doc,
+                             claimant=normalized_claimant,
+                             uri=normalized_claimant,
+                             type='self-claim')
+        return doc
+
 
 class DocumentURI(Base, Timestamps):
     __tablename__ = 'document_uri'
@@ -128,7 +164,7 @@ class DocumentURI(Base, Timestamps):
     @claimant.setter
     def claimant(self, value):
         self._claimant = value
-        self._claimant_normalized = uri.normalize(value)
+        self._claimant_normalized = text_type(uri.normalize(value))
 
     @hybrid_property
     def claimant_normalized(self):
@@ -141,7 +177,7 @@ class DocumentURI(Base, Timestamps):
     @uri.setter
     def uri(self, value):
         self._uri = value
-        self._uri_normalized = uri.normalize(value)
+        self._uri_normalized = text_type(uri.normalize(value))
 
     @hybrid_property
     def uri_normalized(self):
