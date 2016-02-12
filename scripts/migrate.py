@@ -15,8 +15,10 @@ from pyramid.request import Request
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from h import db
-from h.api.models.postgres import Annotation
+from h.api.db import Base as APIBase
+from h.api.models.postgres import Annotation, Document, DocumentURI
 from h.api import uri
+from h._compat import text_type
 
 BATCH_SIZE = 2000
 
@@ -54,6 +56,8 @@ def main():
 
     engine = db.make_engine(request.registry.settings)
     Session.configure(bind=engine)
+
+    APIBase.query = Session.query_property()
 
     if 'DEBUG_QUERY' in os.environ:
         logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
@@ -145,7 +149,14 @@ def import_annotations(annotations):
 
     for a in annotations:
         try:
-            objs.append(annotation_from_data(a['_id'], a['_source']))
+            document_data = a['_source'].pop('document', None)
+
+            annotation = annotation_from_data(a['_id'], a['_source'])
+            objs.append(annotation)
+
+            if document_data is not None:
+                documents = document_objs_from_data(document_data, annotation)
+                objs.extend(documents)
         except Exception as e:
             log.warn('error importing %s: %s', a['_id'], e)
             failure += 1
@@ -198,16 +209,54 @@ def annotation_from_data(id, data):
     if ann.target_uri is None:
         raise Skip("annotation is missing a target source and uri")
 
-    ann.target_uri_normalized = unicode(uri.normalize(ann.target_uri), 'utf-8')
-
-    # We are generating documents from Postgres annotations, so we can safely
-    # discard them here.
-    _ = data.pop('document', None)
+    ann.target_uri_normalized = text_type(uri.normalize(ann.target_uri))
 
     if data:
         ann.extra = data
 
     return ann
+
+
+def document_objs_from_data(data, ann):
+    objs = []
+
+    links = _transfom_document_links(ann.target_uri, data)
+    uris = [link['uri'] for link in links]
+    document = Document.get_or_create_by_uris(ann.target_uri, uris, ann.id)
+    if document.id is None:
+        document.created = ann.created
+        document.updated = ann.updated
+        for docuri in document.uris:
+            docuri.created = ann.created
+            docuri.updated = ann.updated
+
+        Session.add(document)
+        Session.flush()
+    else:
+        document.updated = ann.updated
+        objs.append(document)
+
+    for link in links:
+        docuri = DocumentURI.query.filter(
+                DocumentURI.claimant_normalized == text_type(uri.normalize(link.get('claimant'))),
+                DocumentURI.uri_normalized == text_type(uri.normalize(link.get('uri'))),
+                DocumentURI.type == link.get('type'),
+                DocumentURI.content_type == link.get('content_type')
+                ).first()
+
+        if docuri is None:
+            docuri = DocumentURI(claimant=link.get('claimant'),
+                                 uri=link.get('uri'),
+                                 type=link.get('type'),
+                                 content_type=link.get('content_type'),
+                                 document=document)
+            Session.add(docuri)
+            Session.flush()
+        else:
+            docuri.updated = ann.updated
+            objs.append(docuri)
+
+    return objs
 
 
 def _batch_iter(n, iterable):
@@ -319,6 +368,72 @@ def _permissions_allow_sharing(user, group, perms):
         return True
 
     return False
+
+
+def _transfom_document_links(ann_target_uri, docdata):
+    transformed = []
+    doclinks = docdata.get('links', [])
+    for link in doclinks:
+        # disregard self-claim urls as they're are being added separately
+        # later on.
+        if link.keys() == ['href'] and link['href'] == ann_target_uri:
+            continue
+
+        # disregard doi links as these are being added separately from the
+        # highwire and dc metadata later on.
+        if link.keys() == ['href'] and link['href'].startswith('doi:'):
+            continue
+
+        uri_ = link['href']
+        type = None
+
+        # highwire pdf (href, type=application/pdf)
+        if set(link.keys()) == set(['href', 'type']) and len(link.keys()) == 2:
+            type = 'highwire-pdf'
+
+        if type is None and not link.get('rel'):
+            type = 'rel-{}'.format(link['rel'])
+
+        content_type = None
+        if link.get('type'):
+            content_type = link['type']
+
+        transformed.append({
+            'claimant': ann.target_uri,
+            'uri': uri_,
+            'type': type,
+            'content_type': content_type})
+
+    # Add highwire doi link based on metadata
+    hwdoivalues = docdata.get('highwire', {}).get('doi', [])
+    for doi in hwdoivalues:
+        if not doi.startswith('doi:'):
+            doi = "doi:{}".format(doi)
+
+        transformed.append({
+            'claimant': ann_target_uri,
+            'uri': doi,
+            'type': 'highwire-doi'})
+
+    # Add dc doi link based on metadata
+    dcdoivalues = docdata.get('dc', {}).get('identifier', [])
+    for doi in dcdoivalues:
+        if not doi.startswith('doi:'):
+            doi = "doi:{}".format(doi)
+
+        transformed.append({
+            'claimant': ann_target_uri,
+            'uri': doi,
+            'type': 'dc-doi'})
+
+    # add self claim
+    transformed.append({
+        'claimant': ann_target_uri,
+        'uri': ann_target_uri,
+        'type': 'self-claim'})
+
+    return transformed
+
 
 if __name__ == '__main__':
     main()
