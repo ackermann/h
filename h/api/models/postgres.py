@@ -109,7 +109,7 @@ class Document(Base, Timestamps):
                 ).distinct(DocumentURI.document_id)
         if uris.count() > 1:
             log.warn("Found multiple document ids for a set of urls. "
-                     "urls: {}".format(normalized_uris))
+                     "urls: {}".format(query_uris))
 
         docuri = uris.first()
         if docuri is not None:
