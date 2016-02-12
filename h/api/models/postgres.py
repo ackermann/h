@@ -150,10 +150,6 @@ class DocumentURI(Base, Timestamps):
 
     type = sa.Column(sa.UnicodeText)
     content_type = sa.Column(sa.UnicodeText)
-    canonical = sa.Column(sa.Boolean,
-                          nullable=False,
-                          default=False,
-                          server_default=sa.sql.expression.false())
 
     document_id = sa.Column(sa.Integer, sa.ForeignKey('document.id'))
 

@@ -45,7 +45,6 @@ def upgrade():
         sa.Column('uri_normalized', sa.UnicodeText, nullable=False),
         sa.Column('type', sa.UnicodeText, nullable=True),
         sa.Column('content_type', sa.UnicodeText, nullable=True),
-        sa.Column('canonical', sa.Boolean(), server_default=sa.sql.expression.false(), nullable=False),
         sa.Column('document_id', sa.Integer(), nullable=True),
         sa.ForeignKeyConstraint(['document_id'], [u'document.id']),
         sa.UniqueConstraint('claimant_normalized', 'uri_normalized', 'type', 'content_type')
