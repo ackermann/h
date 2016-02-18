@@ -110,6 +110,7 @@ module.exports = angular.module('h', [
 
 .directive('annotation', require('./directive/annotation').directive)
 .directive('deepCount', require('./directive/deep-count'))
+.directive('designGrid', require('./directive/design-grid'))
 .directive('excerpt', require('./directive/excerpt').directive)
 .directive('formInput', require('./directive/form-input'))
 .directive('formValidate', require('./directive/form-validate'))
