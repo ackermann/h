@@ -17,12 +17,10 @@ var FIXTURES_TO_FUZZY_STRING = [
   [4 * hour, '4 hours ago'],
   [27 * hour, 'a day ago'],
   [3 * day + 30 * minute, '3 days ago'],
-  [6 * month + 2 * day, '6 months ago'],
-  [1 * year, 'one year ago'],
-  [1 * year + 2 * month, 'one year ago'],
-  [2 * year, '2 years ago'],
-  [8 * year, '8 years ago']
 ];
+
+// TODO: Add a test that dates > N days ago
+// are formatted as absolute dates
 
 var FIXTURES_NEXT_FUZZY_UPDATE = [
   [10, 5], // we have a minimum of 5 secs

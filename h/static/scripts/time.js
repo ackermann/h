@@ -1,23 +1,22 @@
 'use strict';
 
+var dateUtil = require('./date-util');
+
 var minute = 60;
 var hour = minute * 60;
 var day = hour * 24;
 var month = day * 30;
-var year = day * 365;
 
 var BREAKPOINTS = [
-  [30,         'moments ago',    1],
-  [minute,     '{} seconds ago', 1],
-  [2 * minute, 'a minute ago',   minute],
-  [hour,       '{} minutes ago', minute],
-  [2 * hour,   'an hour ago',    hour],
-  [day,        '{} hours ago',   hour],
-  [2 * day,    'a day ago',      day],
-  [month,      '{} days ago',    day],
-  [year,       '{} months ago',  month],
-  [2 * year,   'one year ago',   year],
-  [Infinity,   '{} years ago',   year]
+  [30,         'Just now',    1],
+  [minute,     '{} sec', 1],
+  [hour,       '{} min', minute],
+  [day,        '{} hr',   hour],
+  [month,      '{} days',    day],
+
+  // Use an absolute date for dates older than
+  // a month
+  [Infinity,   '',   undefined]
 ];
 
 function getBreakpoint(date) {
@@ -37,6 +36,14 @@ function getBreakpoint(date) {
   };
 }
 
+/**
+ * Returns the delay before a timestamp formatted with toFuzzyString()
+ * should be refreshed.
+ *
+ * @return {number?} - The minimum delay before a timestamp should
+ *                     be refreshed or null if the formatted output will
+ *                     never change.
+ */
 function nextFuzzyUpdate(date) {
   if (!date) {
     return null;
@@ -48,6 +55,9 @@ function nextFuzzyUpdate(date) {
   }
 
   var secs = breakpoint[2];
+  if (!secs) {
+    return null;
+  }
 
   // We don't want to refresh anything more often than 5 seconds
   secs = Math.max(secs, 5);
@@ -73,6 +83,9 @@ function decayingInterval(date, callback) {
   var timer;
   var update = function () {
     var fuzzyUpdate = nextFuzzyUpdate(date);
+    if (!fuzzyUpdate) {
+      return;
+    }
     var nextUpdate = (1000 * fuzzyUpdate) + 500;
     timer = setTimeout(function () {
       callback(date);
@@ -104,6 +117,11 @@ function toFuzzyString(date) {
   }
   var template = breakpoint[1];
   var resolution = breakpoint[2];
+
+  if (!resolution) {
+    return dateUtil.formatDate(new Date(date));
+  }
+
   return template.replace('{}', String(Math.floor(delta / resolution)));
 }
 
