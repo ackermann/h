@@ -13,65 +13,62 @@ $group-list-spacing-below: 50px;
     max-height: 500px;  // fallback for browsers lacking support for vh/calc
     max-height: calc(100vh - #{$top-bar-height} - #{$group-list-spacing-below});
     overflow-y: auto;
+  }
+}
 
-    .group-name {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: $group-list-width - 30px;
+.group-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: $group-list-width - 30px;
+}
+
+.group-item {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    .group-name-link {
+      color: $brand-color;
     }
   }
 
-  .group-item {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-
-    padding: 10px;
-    cursor: pointer;
-
-    &:hover {
-      .group-name-link {
-        color: $brand-color;
-      }
-    }
-
-    &.selected {
-      .group-name-link {
-        font-size: $body2-font-size;
-        font-weight: 600;
-      }
+  &.selected {
+    .group-name-link {
+      font-size: $body2-font-size;
+      font-weight: 600;
     }
   }
+}
 
-  .group-icon-container {
-    margin-right: 10px;
+.group-item--new {
+  background-color: $gray-lightest;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.group-icon-container {
+  margin-right: 10px;
+
+  & > .h-icon-add {
+    font-weight: bold;
   }
+}
 
-  .group-cancel-icon-container {
-    // the 'Leave group' icon is shifted down slightly
-    // so that it lines up vertically with the 'chat heads' icon on the
-    // left-hand side of the groups list
-    padding-top: 3px;
-    margin-right: 2px;
-  }
+.group-cancel-icon-container {
+  // the 'Leave group' icon is shifted down slightly
+  // so that it lines up vertically with the 'chat heads' icon on the
+  // left-hand side of the groups list
+  padding-top: 3px;
+  margin-right: 2px;
+}
 
-  .group-details {
-    flex-grow: 1;
-    flex-shrink: 1;
-  }
-
-  .new-group-btn {
-    background-color: $gray-lightest;
-
-    .group-item {
-      padding-top: 12px;
-      padding-bottom: 12px;
-    }
-
-    .h-icon-add {
-      font-weight: bold;
-    }
-  }
+.group-details {
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 // the icon indicating the type of group currently selected at
