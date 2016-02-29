@@ -14,17 +14,19 @@
 }
 
 .top-bar__inner {
-  // the edges of the top-bar's contents should be aligned
-  // with the edges of annotation cards displayed below
-  $h-padding: 9px;
 
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-end;
 
-  padding-left: $h-padding;
-  padding-right: $h-padding;
+  // Align the left edge of the top bar's contents with
+  // the left edge of the annotation cards below
+  padding-left: $sidebar-grid-spacing;
+
+  // Align the right edge of the account drop-down menu with
+  // the right edge of the annotation card below.
+  padding-right: 1px;
 
   height: 100%;
 }

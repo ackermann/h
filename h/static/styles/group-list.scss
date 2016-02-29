@@ -76,7 +76,6 @@ $group-list-spacing-below: 50px;
 .group-list-label__icon {
   color: $color-gray;
   display: inline-block;
-  margin-right: 4px;
   vertical-align: baseline;
 
   // align the base of the chat-heads icon for groups
@@ -87,8 +86,10 @@ $group-list-spacing-below: 50px;
 // the label showing the currently selected group which opens
 // the drop-down list when clicked
 .group-list-label__label {
+  display: inline-block;
   font-size: $body2-font-size;
-  font-weight:bold;
+  font-weight: bold;
+  margin-left: 6px;
 }
 
 // the name of a group in the groups drop-down list

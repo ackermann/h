@@ -54,13 +54,13 @@
   </header>
 
   <!-- Excerpts -->
-  <section class="annotation-quote-list"
+  <section class="annotation-quote-list--new"
            ng-repeat="target in vm.target() track by $index"
            ng-if="vm.hasQuotes()">
     <excerpt collapsed-height="40"
              inline-controls="true"
              overflow-hysteresis="20">
-      <blockquote class="annotation-quote"
+      <blockquote class="annotation-quote--new"
                   ng-bind-html="selector.exact"
                   ng-repeat="selector in target.selector
                              | filter : {'type': 'TextQuoteSelector'}
