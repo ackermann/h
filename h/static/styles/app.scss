@@ -34,7 +34,6 @@ $base-line-height: 20px;
 body {
   $sidebar-h-padding: 9px;
 
-  @include noise-background;
   font-family: $sans-font-family;
   font-weight: 300;
   padding: $sidebar-h-padding;
@@ -48,6 +47,14 @@ body {
 
 #{nest("hgroup", "#{headings()}")} {
   margin: 0;
+}
+
+.sidebar-body {
+  @include noise-background
+}
+
+.sidebar-body--new {
+  background-color: $gray-light-2;
 }
 
 .content {

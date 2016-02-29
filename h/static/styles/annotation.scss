@@ -16,6 +16,16 @@ $annotation-card-left-padding: 10px;
   padding-bottom: 15px;
 }
 
+.annotation-card--new {
+  background-color: white;
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.10);
+  border-radius: 2px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  padding-bottom: 15px;
+}
+
 .annotation {
   display: block;
   font-family: $sans-font-family;

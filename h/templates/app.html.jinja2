@@ -22,7 +22,11 @@
       {% endfor %}
     {% endif %}
   </head>
-  <body ng-app="h" ng-strict-di ng-controller="AppController" ng-csp="">
+  <body class="sidebar-body--new"
+        ng-app="h"
+        ng-strict-di
+        ng-controller="AppController"
+        ng-csp="">
     <top-bar
       auth="auth"
       on-login="login()"
