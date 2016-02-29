@@ -1,5 +1,15 @@
 'use strict';
 
+var BASELINE_GRID_STYLE = {
+  lineWidth: 1.0,
+  strokeStyle: 'rgba(0,0,0,0.05)',
+};
+
+var ACTIVE_LINE_STYLE = {
+  lineWidth: 2.0,
+  strokeStyle: 'rgba(0,0,0,0.2)',
+};
+
 function renderGridLines(canvas, opts) {
   var rect = canvas.getBoundingClientRect();
   var ctx = canvas.getContext('2d');
@@ -11,7 +21,7 @@ function renderGridLines(canvas, opts) {
     return;
   }
 
-  ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+  Object.assign(ctx, BASELINE_GRID_STYLE);
 
   // Draw the grid. The 0.5px offset is to ensure a sharp
   // grid line
@@ -28,6 +38,35 @@ function renderGridLines(canvas, opts) {
     ctx.lineTo(rect.width, y);
     ctx.stroke();
   }
+
+  // Highlight the current line
+  if (opts.activeRowY) {
+    Object.assign(ctx, ACTIVE_LINE_STYLE);
+
+    ctx.beginPath();
+    ctx.moveTo(0, opts.activeRowY);
+    ctx.lineTo(rect.width, opts.activeRowY);
+    ctx.stroke();
+  }
+
+  if (opts.activeColX) {
+    Object.assign(ctx, ACTIVE_LINE_STYLE);
+
+    ctx.beginPath();
+    ctx.moveTo(opts.activeColX, 0);
+    ctx.lineTo(opts.activeColX, rect.height);
+    ctx.stroke();
+  }
+}
+
+/**
+ * Round a number to the nearest @p resolution units.
+ *
+ * @param {number} val
+ * @param {number} resolution
+ */
+function roundTo(val, resolution) {
+  return Math.round((val + resolution/2) / resolution) * resolution;
 }
 
 /**
@@ -65,6 +104,20 @@ module.exports = function ($window) {
           opts.showGrid = !opts.showGrid;
           renderGridLines(canvas, opts);
         }
+      });
+
+      document.addEventListener('mousemove', function (event) {
+        if (!opts.showGrid) {
+          return;
+        }
+        renderGridLines(canvas, Object.assign({}, opts, {
+          activeRowY: roundTo(event.clientY, opts.baselineSpacing),
+          activeColX: roundTo(event.clientX, opts.baselineSpacing),
+        }));
+      });
+
+      document.addEventListener('mouseleave', function () {
+        renderGridLines(canvas, opts);
       });
 
       resizeCanvasToViewport();
