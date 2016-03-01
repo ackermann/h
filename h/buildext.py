@@ -102,11 +102,14 @@ def chrome_manifest(script_host_url, bouncer_url):
     return template.render(context)
 
 
-def build_type_from_api_url(api_url):
+def build_type(api_url, version):
     """
     Returns the default build type ('production', 'staging' or 'dev')
     when building an extension that communicates with the given service
     """
+    if '+' in version:
+        return 'dev'
+
     host = urlparse.urlparse(api_url).netloc
     if host == 'hypothes.is':
         return 'production'
@@ -120,7 +123,7 @@ def settings_dict(service_url, api_url, sentry_public_dsn):
     """ Returns a dictionary of settings to be bundled with the extension """
     config = {
         'apiUrl': api_url,
-        'buildType': build_type_from_api_url(api_url),
+        'buildType': build_type(api_url, h.__version__),
         'serviceUrl': service_url,
     }
 
