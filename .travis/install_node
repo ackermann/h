@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -eu
+
+echo "PATH=$PATH"
+which nvm || :
+nvm install 4.3
