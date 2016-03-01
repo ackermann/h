@@ -1,13 +1,21 @@
+queryString = require('query-string')
 Annotator = require('annotator')
 $ = Annotator.$
 
 Guest = require('./guest')
 
-
 module.exports = class Host extends Guest
   constructor: (element, options) ->
+    args = {}
+
     if options.firstRun
-      options.app += (if '?' in options.app then '&' else '?') + 'firstrun'
+      args['firstrun'] = true
+    if options.liveReloadServer
+      args['livereloadserver'] = options.liveReloadServer
+
+    argString = queryString.stringify(args)
+    if argString
+      options.app += (if '?' in options.app then '&' else '?') + argString
 
     # Create the iframe
     app = $('<iframe></iframe>')

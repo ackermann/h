@@ -76,7 +76,11 @@ setupHttp = ['$http', ($http) ->
   $http.defaults.headers.common['X-Client-Id'] = streamer.clientId
 ]
 
-setupHost = ['host', (host) -> ]
+processAppOpts = ->
+  queryString = require('query-string')
+  appOpts = queryString.parse(window.location.search)
+  if appOpts.livereloadserver
+    require('./live-reload-client').connect(appOpts.livereloadserver)
 
 module.exports = angular.module('h', [
   # Angular addons which export the Angular module name
@@ -169,6 +173,7 @@ module.exports = angular.module('h', [
 
 .run(setupCrossFrame)
 .run(setupHttp)
-.run(setupHost)
 
 require('./config/module')
+
+processAppOpts()
