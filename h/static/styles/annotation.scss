@@ -44,12 +44,6 @@ $quote-line-margin: 5px;
   }
 }
 
-.annotation-quote-list,
-.annotation-header,
-.annotation-footer {
-  @include pie-clearfix;
-}
-
 .annotation-header {
   display: flex;
   flex-direction: row;
@@ -108,11 +102,13 @@ $quote-line-margin: 5px;
 }
 
 .annotation-replies {
-  float: left;
+}
+
+.annotation-actions-row {
+  display: flex;
 }
 
 .annotation-actions {
-  float: right;
   margin-top: 0;
 
   button {
