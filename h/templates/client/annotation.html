@@ -142,7 +142,7 @@
 
     <div class="annotation-actions-row">
       <div class="annotation-actions">
-        <button class="small btn btn-clean"
+        <button class="annotation-action-btn"
                 ng-click="vm.reply()"
                 ><i class="h-icon-reply-new btn-icon"></i> Reply</button>
       </div>
@@ -161,16 +161,16 @@
       </div>
 
       <div class="annotation-actions" ng-if="!vm.isSaving && !vm.editing() && vm.id()">
-        <button class="small btn btn-clean"
+        <button class="annotation-action-btn annotation-action-btn--padded"
                 ng-show="vm.authorize('update') && !vm.isSaving"
                 ng-click="vm.edit()"
                 >Edit</button>
-        <button class="small btn btn-clean"
+        <button class="annotation-action-btn annotation-action-btn--padded"
                 ng-show="vm.authorize('delete')"
                 ng-click="vm.delete()"
                 >Delete</button>
         <span class="share-dialog-wrapper">
-          <button class="small btn btn-clean"
+          <button class="annotation-action-btn"
                   ng-click="vm.share($event)"
                   ><i class="h-icon-share-new btn-icon"></i></button>
           <span class="share-dialog" ng-click="$event.stopPropagation()">

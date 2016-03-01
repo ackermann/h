@@ -115,16 +115,24 @@ $quote-line-margin: 5px;
 
 .annotation-actions {
   margin-top: 0;
+}
 
-  button {
-    color: $gray-light;
-    font-weight: normal;
-    padding: 0;
+.annotation-action-btn {
+  border: none;
+  background: none;
+  color: $gray-light;
+  font-weight: normal;
+  font-size: $font-size-small;
+  padding: 0;
 
-    .annotation:hover & {
-      color: $link-color;
-    }
+  .annotation:hover & {
+    color: $link-color;
   }
+}
+
+.annotation-action-btn--padded {
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .annotation-quote {
