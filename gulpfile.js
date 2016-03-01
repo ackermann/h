@@ -159,7 +159,8 @@ gulp.task('build-css', function () {
 });
 
 gulp.task('watch-css', function () {
-  gulp.watch('./h/static/styles/**/*.scss', ['build-css']);
+  gulp.watch(['./h/static/styles/**/*.scss',
+              './h/static/styles/vendor/*.css'], ['build-css']);
 });
 
 var fontFiles = 'h/static/styles/vendor/fonts/*.woff';
