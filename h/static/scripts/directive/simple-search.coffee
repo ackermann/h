@@ -42,7 +42,7 @@ module.exports = ['$http', '$parse', ($http, $parse) ->
                      ng-disabled="loading"
                      ng-class="(alwaysExpanded || searchtext.length > 0) ? 'is-expanded' : ''"/>
               <button type="button" class="simple-search-icon top-bar__btn" ng-hide="loading">
-                <i class="h-icon-search"></i>
+                <i class="h-icon-search-new"></i>
               </button>
               <button type="button" class="simple-search-icon btn btn-clean" ng-show="loading" disabled>
                 <span class="btn-icon"><span class="spinner"></span></span>

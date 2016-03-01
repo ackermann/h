@@ -24,11 +24,11 @@
       <span class="annotation-header__share-info">
         <a class="annotation-header__group"
            target="_blank" ng-if="vm.group() && vm.group().url" href="{{vm.group().url}}">
-          <i class="h-icon-group"></i><span class="annotation-header__group-name">{{vm.group().name}}</span>
+          <i class="h-icon-group-new"></i><span class="annotation-header__group-name">{{vm.group().name}}</span>
         </a>
         <span ng-show="vm.isPrivate"
               title="This annotation is visible only to you.">
-          <i class="h-icon-lock"></i><span class="annotation-header__group-name" ng-show="!vm.group().url">Only me</span>
+          <i class="h-icon-private-new"></i><span class="annotation-header__group-name" ng-show="!vm.group().url">Only me</span>
         </span>
         <i class="h-icon-border-color" ng-show="vm.isHighlight() && !vm.editing()" title="This is a highlight. Click 'edit' to add a note or tag."></i>
         <span class="annotation-citation"
@@ -144,7 +144,7 @@
       <div class="annotation-actions">
         <button class="small btn btn-clean"
                 ng-click="vm.reply()"
-                ><i class="h-icon-reply btn-icon"></i> Reply</button>
+                ><i class="h-icon-reply-new btn-icon"></i> Reply</button>
       </div>
 
       <div class="annotation-replies" ng-if="vm.replyCount > 0">
@@ -172,10 +172,10 @@
         <span class="share-dialog-wrapper">
           <button class="small btn btn-clean"
                   ng-click="vm.share($event)"
-                  ><i class="h-icon-link btn-icon"></i></button>
+                  ><i class="h-icon-share-new btn-icon"></i></button>
           <span class="share-dialog" ng-click="$event.stopPropagation()">
             <a target="_blank"
-               class="h-icon-link"
+               class="h-icon-share-new"
                ng-href="{{vm.annotationURI}}"
                title="Open in new tab"></a>
             <input type="text" value="{{vm.annotationURI}}" readonly>
