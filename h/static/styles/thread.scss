@@ -5,9 +5,13 @@ $thread-padding: $annotation-card-left-padding;
     margin-bottom: .72em;
   }
 
+  & > li.thread {
+    border: 1px solid transparent;
+  }
+
   & > li.thread:hover,
   & > li.thread.js-hover {
-    @include focus-outline;
+    border: 1px solid rgba(0,113,255,0.6);
   }
 
   & > li.thread > .threadexp {

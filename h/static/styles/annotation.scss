@@ -24,7 +24,7 @@ $quote-line-margin: 5px;
   padding-left: $sidebar-grid-spacing;
   padding-right: $sidebar-grid-spacing;
   padding-top: $sidebar-grid-spacing;
-  padding-bottom: $sidebar-grid-spacing * 1.5;
+  padding-bottom: $sidebar-grid-spacing;
 }
 
 .annotation {
@@ -42,6 +42,10 @@ $quote-line-margin: 5px;
   .annotation:hover & {
     color: $link-color;
   }
+}
+
+.annotation-link--reply {
+  margin-left: $sidebar-grid-spacing / 2;
 }
 
 .annotation-header {
@@ -62,13 +66,14 @@ $quote-line-margin: 5px;
 
 .annotation-header__group-name {
   display: inline-block;
-  margin-left: 5px;
+  margin-left: $sidebar-grid-spacing;
 }
 
-// the footer at the bottom of an annotation displaying
+// The footer at the bottom of an annotation displaying
 // the annotation actions and reply counts
 .annotation-footer {
   margin-bottom: 0;
+  margin-top: $sidebar-grid-spacing;
 }
 
 .u-flex-spacer {
@@ -114,7 +119,6 @@ $quote-line-margin: 5px;
   button {
     color: $gray-light;
     font-weight: normal;
-    margin: 0 .2em;
     padding: 0;
 
     .annotation:hover & {
