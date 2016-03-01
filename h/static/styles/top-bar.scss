@@ -4,10 +4,11 @@
 .top-bar {
   background: $white;
   border-bottom: solid 1px $gray-lighter;
-  height: $top-bar-height;
   font-size: 15px;
-  position: fixed;
+  height: $top-bar-height;
   left: 0;
+  min-width: $sidebar-min-width;
+  position: fixed;
   right: 0;
   top: 0;
   z-index: 5;
