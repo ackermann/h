@@ -2,8 +2,16 @@
 @import '../mixins/icons';
 
 $base-font-size: 14px;
+$adder-border-color: $gray-dark-3;
+
+$btn-color: $gray-light-0;
+$btn-hover-color: $gray-dark-2;
+$btn-active-background-color: $gray-light-2;
 
 //ADDER////////////////////////////////
+
+// The mini-toolbar which appears above the selection when
+// the Hypothesis client is active
 .annotator-adder {
   box-sizing: border-box;
   direction: ltr;
@@ -13,7 +21,7 @@ $base-font-size: 14px;
   padding: 0;
   position: absolute;
   background: $white;
-  border: 3px solid $gray;
+  border: 3px solid $adder-border-color;
   border-radius: 4px;
   z-index: 999;
 
@@ -21,8 +29,8 @@ $base-font-size: 14px;
     @include rotate(45deg);
     background: $white;
     bottom: -8px;
-    border-bottom: 4px solid $gray;
-    border-right: 4px solid $gray;
+    border-bottom: 4px solid $adder-border-color;
+    border-right: 4px solid $adder-border-color;
     content: "";
     display: block;
     height: 6px;
@@ -47,15 +55,15 @@ $base-font-size: 14px;
     padding: 0;
     text-align: center;
     background: $white !important;
-    color: $gray-light !important;
+    color: $btn-color !important;
 
     &:active {
       transition: background-color .25s;
-      background-color: $gray-light !important;
+      background-color: $btn-active-background-color !important;
     }
 
     &:hover {
-      color: $gray-dark !important;
+      color: $btn-hover-color !important;
     }
   }
 }
@@ -159,13 +167,15 @@ $base-font-size: 14px;
     }
   }
 
+  // Buttons in the bucket bar for toggling the sidebar, toggling highlights
+  // and creating page notes
   .annotator-frame-button {
     transition: background-color .25s .25s;
     @include smallshadow;
     background: $white;
-    border: solid 1px $gray-lighter;
+    border: solid 1px $gray-light-1;
     border-radius: 4px;
-    color: $gray-light;
+    color: $btn-color;
     text-decoration: none;
     height: 30px;
     width: 30px;
@@ -175,12 +185,12 @@ $base-font-size: 14px;
 
     &:active {
       transition: background-color .25s;
-      background-color: $gray-light;
+      background-color: $btn-active-background-color;
     }
 
     &:focus, &:hover {
       outline: 0;
-      color: $text-color;
+      color: $btn-hover-color;
     }
   }
 

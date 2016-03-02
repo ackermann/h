@@ -3,7 +3,7 @@
 
 .top-bar {
   background: $white;
-  border-bottom: solid 1px $gray-lighter;
+  border-bottom: solid 1px $gray-light-1;
   font-size: 15px;
   height: $top-bar-height;
   left: 0;
@@ -54,16 +54,16 @@
 .top-bar__btn {
   @include reset-native-btn-styles;
 
-  color: $gray-light;
+  color: $gray-light-0;
   display: inline-block;
   cursor: pointer;
   padding: 0 3px;
 
   &:hover {
-    color: $gray-dark;
+    color: $gray-dark-3;
   }
 }
 
 .top-bar__dropdown-arrow {
-  color: $color-dove-gray;
+  color: $gray-dark-3;
 }

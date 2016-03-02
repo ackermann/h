@@ -45,12 +45,13 @@ $group-list-spacing-below: 50px;
 }
 
 .group-item--new {
-  background-color: $gray-lightest;
+  background-color: $gray-light-3;
   padding-top: 12px;
   padding-bottom: 12px;
 }
 
 .group-icon-container {
+  color: $gray-light-0;
   margin-right: 10px;
 
   & > .h-icon-add {
@@ -64,6 +65,11 @@ $group-list-spacing-below: 50px;
   // left-hand side of the groups list
   padding-top: 3px;
   margin-right: 2px;
+
+  color: $gray-light-0;
+  &:hover {
+    color: $gray-dark-2;
+  }
 }
 
 .group-details {
@@ -71,10 +77,10 @@ $group-list-spacing-below: 50px;
   flex-shrink: 1;
 }
 
-// the icon indicating the type of group currently selected at
+// The icon indicating the type of group currently selected at
 // the top of the groups list
 .group-list-label__icon {
-  color: $color-gray;
+  color: $gray-light-0;
   display: inline-block;
   vertical-align: baseline;
 
@@ -87,6 +93,7 @@ $group-list-spacing-below: 50px;
 // the drop-down list when clicked
 .group-list-label__label {
   display: inline-block;
+  color: $gray-dark-1;
   font-size: $body2-font-size;
   font-weight: bold;
   margin-left: 6px;

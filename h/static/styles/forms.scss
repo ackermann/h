@@ -302,11 +302,11 @@
   padding: 2px;
 }
 
-// a light grey cancel/remove button which darkens on hover
+// A light grey cancel/remove button which darkens on hover
 .btn--cancel {
-  color: $color-silver;
+  color: $gray-dark-3;
   &:hover {
-    color: darken($color-silver, 15%);
+    color: darken($gray-dark-3, 15%);
   }
 }
 

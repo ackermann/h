@@ -36,7 +36,7 @@ $quote-line-margin: 5px;
 
 .annotation-link {
   font-size: $body1-font-size;
-  color: $color-gray;
+  color: $gray-dark-3;
   &:focus { outline: 0; }
 
   .annotation:hover & {
@@ -56,12 +56,13 @@ $quote-line-margin: 5px;
 }
 
 .annotation-header__share-info {
-  color: $color-gray;
+  color: $gray-dark-3;
 }
 
 .annotation-header__group {
-  color: $color-gray;
-  font-size: $body1-font-size;
+  @include font-body1;
+
+  color: $gray-dark-3;
 }
 
 .annotation-header__group-name {
@@ -96,7 +97,7 @@ $quote-line-margin: 5px;
 }
 
 .annotation-user {
-  color: $text-color;
+  color: $gray-dark-1;
   font-weight: bold;
   font-size: $body1-font-size;
   &:hover {
@@ -120,7 +121,7 @@ $quote-line-margin: 5px;
 .annotation-action-btn {
   border: none;
   background: none;
-  color: $gray-light;
+  color: $gray-dark-3;
   font-weight: normal;
   font-size: $font-size-small;
   padding: 0;
@@ -128,6 +129,14 @@ $quote-line-margin: 5px;
   .annotation:hover & {
     color: $link-color;
   }
+}
+
+.annotation-action-btn__label {
+  display: inline-block;
+
+  // The margin here aligns the left edge of the Reply button
+  // with the left-edge of the group name and quote text above
+  margin-left: 4px;
 }
 
 .annotation-action-btn--padded {
@@ -146,6 +155,8 @@ $quote-line-margin: 5px;
 }
 
 .annotation-quote--new {
+  @include font-body1;
+
   color: $gray-dark-3;
   font-family: $sans-font-family;
   font-style: italic;
@@ -155,8 +166,9 @@ $quote-line-margin: 5px;
 }
 
 .annotation-citation-domain {
-  color: $gray-light;
-  font-size: $body1-font-size;
+  @include font-small;
+
+  color: $gray-dark-3;
 }
 
 .annotation-license {
@@ -166,7 +178,7 @@ $quote-line-margin: 5px;
   padding-top: 0.583em;
 
   a {
-    color: $gray-light;
+    color: $gray-dark-3;
     display: block;
   }
 
@@ -265,5 +277,5 @@ $quote-line-margin: 5px;
 .annotation-form-actions {
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
+  margin-bottom: $sidebar-grid-spacing;
 }

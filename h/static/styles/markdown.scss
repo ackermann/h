@@ -1,8 +1,8 @@
 //MARKDOWN EDITOR //////////////////////////
 .markdown-preview {
   overflow: auto;
-  border: .1em solid $gray-lighter;
-  background-color: $gray-lightest;
+  border: .1em solid $gray-light-2;
+  background-color: $gray-light-3;
   min-height: 120px;
   padding-left: 0.9em;
   resize: vertical;
@@ -20,7 +20,7 @@
 
   &.disable {
     .markdown-tools-button {
-      color: $gray-lighter;
+      color: $gray-light-2;
       pointer-events: none;
     }
   }
@@ -28,7 +28,7 @@
   .markdown-tools-button {padding: .4em;}
 
   .markdown-tools-button, .markdown-tools-toggle, .markdown-tools-badge {
-    color: $gray;
+    color: $gray-dark-3;
 
     &:hover, &:focus {
       color: black;

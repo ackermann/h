@@ -3,6 +3,9 @@
 .annotation-body-text {
   h1, h2, h3, h4, h5, h6, p, ol, ul, img, pre, blockquote {
     margin: .618em 0;
+    color: $gray-dark-2;
+
+    @include font-body1;
   }
 
   h1, h2, h3, h4, h5, h6 {

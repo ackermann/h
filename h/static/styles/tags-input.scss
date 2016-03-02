@@ -87,11 +87,11 @@ tags-input {
 
       a {
         text-decoration: none;
-        border: 1px solid $gray-lighter;
+        border: 1px solid $gray-light-1;
         border-radius: 2px;
         padding: 0 .4545em .1818em;
-        color: $gray-light;
-        background: $gray-lightest;
+        color: $gray-dark-3;
+        background: $gray-light-3;
 
         &:hover, &:focus {
           color: $link-color-hover;
