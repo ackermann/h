@@ -35,7 +35,7 @@ $quote-line-margin: 5px;
 }
 
 .annotation-link {
-  font-size: $body1-font-size;
+  font-size: $font-size-small;
   color: $gray-dark-3;
   &:focus { outline: 0; }
 
@@ -99,7 +99,7 @@ $quote-line-margin: 5px;
 .annotation-user {
   color: $gray-dark-1;
   font-weight: bold;
-  font-size: $body1-font-size;
+  font-size: $font-size-body1;
   &:hover {
     color: $link-color-hover;
     cursor: pointer;
@@ -174,7 +174,7 @@ $quote-line-margin: 5px;
 .annotation-license {
   clear: both;
   border-top: #cccccc 1px solid;
-  font-size: 0.8em;
+  font-size: $font-size-small;
   padding-top: 0.583em;
 
   a {
