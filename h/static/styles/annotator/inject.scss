@@ -221,60 +221,27 @@ $btn-active-background-color: $gray-light-2;
   transition: none !important;
 }
 
-/*
-  Mobile layout
-  240-479 px
-  Zoomed out below 320 px
-*/
-
-@media screen and (min-width: 15em) {
+// Narrow mobile layout
+@media screen and (min-width: 240px) {
   .annotator-frame {
     width: 90%;
     margin-left: -90%;
   }
 }
 
-/*
-  Wide mobile layout
-  480-767 px
-  Zoomed in above 480 px
-*/
-
-@media screen and (min-width: 30em) {
+// Wide mobile layout
+@media screen and (min-width: 480px) {
   .annotator-frame {
     width: 70%;
     margin-left: -70%;
   }
 }
 
-/*
-  Tablet layout
-  600-911 px
-  Zoomed in above 600 px
-*/
-
-@media screen and (min-width: 37.5em) {
+// Tablet and desktop layout
+@media screen and (min-width: 600px) {
   .annotator-frame {
     transition: margin-left .15s cubic-bezier(.55, 0, .2, .8);
     width: 428px;
     margin-left: -428px;
   }
-}
-
-/*
-  Widescreen layout
-  912-1887 px
-  Zoomed in above 912 px
-*/
-
-@media screen and (min-width: 57em) {
-}
-
-/*
-  Huge-screen layout
-  1888-2520 px
-  Zoomed in above 1920 px
-*/
-
-@media screen and (min-width: 118em) {
 }
