@@ -23,8 +23,14 @@ $quote-line-margin: 5px;
   border-radius: 2px;
   padding-left: $sidebar-grid-spacing;
   padding-right: $sidebar-grid-spacing;
-  padding-top: $sidebar-grid-spacing;
   padding-bottom: $sidebar-grid-spacing;
+
+  // The horizontal and vertical padding between the edge of the card
+  // and the visible content should match.
+  //
+  // For the top of the card we use a smaller padding because of
+  // the vertical spacing above letters in the font.
+  padding-top: $sidebar-grid-spacing - 5px;
 }
 
 .annotation {
@@ -36,7 +42,7 @@ $quote-line-margin: 5px;
 
 .annotation-link {
   font-size: $font-size-small;
-  color: $gray-dark-3;
+  color: $gray-dark-4;
   &:focus { outline: 0; }
 
   .annotation:hover & {
@@ -87,8 +93,8 @@ $quote-line-margin: 5px;
 }
 
 .annotation-quote-list--new {
-  margin-top: $sidebar-grid-spacing;
-  margin-bottom: $sidebar-grid-spacing;
+  margin-top: $sidebar-grid-spacing - 5px;
+  margin-bottom: $sidebar-grid-spacing - 5px;
 }
 
 .annotation-media-embed {
@@ -121,7 +127,7 @@ $quote-line-margin: 5px;
 .annotation-action-btn {
   border: none;
   background: none;
-  color: $gray-dark-3;
+  color: $gray-dark-4;
   font-weight: normal;
   font-size: $font-size-small;
   padding: 0;
@@ -157,7 +163,7 @@ $quote-line-margin: 5px;
 .annotation-quote--new {
   @include font-body1;
 
-  color: $gray-dark-3;
+  color: $gray-dark-4;
   font-family: $sans-font-family;
   font-style: italic;
   margin-left: $quote-line-margin;

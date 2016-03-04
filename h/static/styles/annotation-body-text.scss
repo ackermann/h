@@ -1,11 +1,20 @@
 @import "base";
 
 .annotation-body-text {
+  margin-top: 5px;
+  margin-bottom: 5px;
+
   h1, h2, h3, h4, h5, h6, p, ol, ul, img, pre, blockquote {
     margin: .618em 0;
     color: $gray-dark-2;
 
     @include font-body1;
+  }
+
+  // Remove the spacing before and after the last paragraphs of
+  // content
+  p:first-child, p:last-child {
+    margin: 0 0;
   }
 
   h1, h2, h3, h4, h5, h6 {
