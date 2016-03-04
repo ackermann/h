@@ -241,7 +241,7 @@ $btn-active-background-color: $gray-light-2;
 @media screen and (min-width: 600px) {
   .annotator-frame {
     transition: margin-left .15s cubic-bezier(.55, 0, .2, .8);
-    width: 428px;
-    margin-left: -428px;
+    width: 400px;
+    margin-left: -400px;
   }
 }
