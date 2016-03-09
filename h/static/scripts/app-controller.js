@@ -10,7 +10,7 @@ var parseAccountID = require('./filter/persona').parseAccountID;
 module.exports = function AppController(
   $controller, $document, $location, $rootScope, $route, $scope,
   $window, annotationUI, auth, drafts, features, groups,
-  identity, session
+  identity, session, settings
 ) {
   $controller('AnnotationUIController', {$scope: $scope});
 
@@ -27,8 +27,6 @@ module.exports = function AppController(
 
   // Allow all child scopes access to the session
   $scope.session = session;
-
-  var isFirstRun = $location.search().hasOwnProperty('firstrun');
 
   // App dialogs
   $scope.accountDialog = {visible: false};
@@ -73,7 +71,7 @@ module.exports = function AppController(
       // we know the current user isn't signed in.
       if ($scope.auth.status === 'unknown') {
         angular.copy({status: 'signed-out'}, $scope.auth);
-        if (isFirstRun) {
+        if (settings.firstRun) {
           $scope.login();
         }
       }

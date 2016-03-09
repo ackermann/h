@@ -1,3 +1,5 @@
+'use strict';
+
 require('../polyfills');
 
 var extend = require('extend');
@@ -46,13 +48,17 @@ if (window.hasOwnProperty('hypothesisConfig')) {
 }
 
 Annotator.noConflict().$.noConflict(true)(function() {
-  'use strict';
   var Klass = window.PDFViewerApplication ?
       Annotator.PdfSidebar :
       Annotator.Sidebar;
   if (options.hasOwnProperty('constructor')) {
     Klass = options.constructor;
     delete options.constructor;
+  }
+
+  var annotFragmentMatch = window.location.hash.match(/^#annotations:(.*)/);
+  if (annotFragmentMatch) {
+    options.annotations = annotFragmentMatch[1];
   }
   window.annotator = new Klass(document.body, options);
 });

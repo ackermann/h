@@ -1,5 +1,6 @@
 'use strict';
 
+var angular = require('angular');
 
 // Fetch the container object for the passed annotation from the threading
 // service, but only return it if it has an associated message.
