@@ -7,22 +7,22 @@ $base-font-size: 14px;
 .annotator-adder {
   box-sizing: border-box;
   direction: ltr;
-  height: 35px;
   margin-left: -20px;
   margin-top: -50px;
-  padding: 0;
+  padding: 2px 0;
+  width: 100px;
   position: absolute;
   background: $white;
-  border: 3px solid $gray;
-  border-radius: 4px;
+  border: 2px solid $gray-light;
+  border-radius: 3px;
   z-index: 999;
 
   &:before {
     @include rotate(45deg);
     background: $white;
-    bottom: -8px;
-    border-bottom: 4px solid $gray;
-    border-right: 4px solid $gray;
+    bottom: -6px;
+    border-bottom: 2px solid $gray;
+    border-right: 2px solid $gray;
     content: "";
     display: block;
     height: 6px;
@@ -34,28 +34,45 @@ $base-font-size: 14px;
     width: 6px;
   }
 
-  button {
-    @include box-shadow(none);
-    display: inline-block;
-    font-family: h;
-    border: none;
-    cursor: pointer;
-    height: 100%;
-    width: 35px;
-    font-size: 18px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background: $white !important;
-    color: $gray-light !important;
+  &:hover {
+    .annotator-adder-action button {
+      color: $gray-light !important;
+    }
+  }
 
-    &:active {
-      transition: background-color .25s;
-      background-color: $gray-light !important;
+  .annotator-adder-action {
+    float: left;
+
+    button {
+      @include box-shadow(none);
+      display: inline-block;
+      font-family: h;
+      border: none;
+      cursor: pointer;
+      height: 100%;
+      width: 45px;
+      font-size: 18px;
+      margin: 2px 0px;
+      padding: 0;
+      text-align: center;
+      background: $white !important;
+      color: $gray-dark !important;
+    }
+
+    .adder-label {
+      display: block;
+      font-size: 10px;
+      color: $gray-light !important;
     }
 
     &:hover {
-      color: $gray-dark !important;
+      button {
+        color: $gray-dark !important;
+      }
+
+      label {
+        color: $gray-dark !important;
+      }
     }
   }
 }

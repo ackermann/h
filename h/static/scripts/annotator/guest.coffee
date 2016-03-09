@@ -44,8 +44,14 @@ module.exports = class Guest extends Annotator
   html: extend {}, Annotator::html,
     adder: '''
       <div class="annotator-adder">
-        <button class="h-icon-insert-comment" data-action="comment" title="New Note"></button>
-        <button class="h-icon-border-color" data-action="highlight" title="Highlight"></button>
+        <div class="annotator-adder-action">
+          <button class="h-icon-annotate" data-action="comment"></button>
+          <label class="adder-label">Annotate</label>
+        </div>
+        <div class="annotator-adder-action">
+          <button class="h-icon-highlight" data-action="highlight"></button>
+          <label class="adder-label">Highlight</label>
+        </div>
       </div>
     '''
 
@@ -343,6 +349,11 @@ module.exports = class Guest extends Annotator
 
     @selectedRanges = event.ranges
 
+    Annotator.$('.h-icon-note')
+      .attr('title', 'New Annotation')
+      .removeClass('h-icon-note')
+      .addClass('h-icon-annotate');
+
     # Do we want immediate annotation?
     if immediate
       # Create an annotation
@@ -358,6 +369,11 @@ module.exports = class Guest extends Annotator
   onFailedSelection: (event) ->
     @adder.hide()
     @selectedRanges = []
+
+    Annotator.$('.h-icon-annotate')
+      .attr('title', 'New Page Note')
+      .removeClass('h-icon-annotate')
+      .addClass('h-icon-note');
 
   selectAnnotations: (annotations, toggle) ->
     if toggle
