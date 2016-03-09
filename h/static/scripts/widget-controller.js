@@ -22,9 +22,18 @@ module.exports = function WidgetController(
     threading.thread(drafts.unsaved());
   };
 
+  // ID of annotation to select when application initially loads
+
+  // FIXME: This ends up being re-initialized when signing in/out because
+  // the whole app is reloaded. We want to clear this however whenever the
+  // user changes the selection.
   var selectOnLoadID = settings.annotations;
+  // True if annotations are currently being loaded from the H
+  // service
+  var loadInProgress = false;
 
   var _loadAnnotationsFrom = function (query, offset, allResults) {
+    loadInProgress = true;
     allResults = allResults || [];
 
     var queryCore = {
@@ -66,11 +75,11 @@ module.exports = function WidgetController(
             });
             annotationUI.selectAnnotations([selectMatch]);
           } else {
-            // Show a message indicating that the selected annotation could
-            // not be found
+            annotationUI.selectAnnotations([{id: selectOnLoadID}]);
           }
         }
 
+        loadInProgress = false;
         annotationMapper.loadAnnotations(allResults);
       }
     });
@@ -122,6 +131,14 @@ module.exports = function WidgetController(
       return false;
     }
     return annotation.$$tag in $scope.focusedAnnotations;
+  };
+
+  $scope.unavailableAnnotationsSelected = function () {
+    var unavailable = Object.keys(annotationUI.selectedAnnotationMap || {})
+      .filter(function (id) {
+        return !threading.idTable.hasOwnProperty(id);
+      });
+    return !loadInProgress && unavailable.length > 0;
   };
 
   $rootScope.$on('beforeAnnotationCreated', function (event, data) {
