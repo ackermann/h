@@ -58,7 +58,7 @@ module.exports = class Toolbar extends Annotator.Plugin
         "click": (event) =>
           event.preventDefault()
           event.stopPropagation()
-          @annotator.createComment()
+          @annotator.createAnnotation()
           @annotator.show()
     ]
     @buttons = $(makeButton(item) for item in items)

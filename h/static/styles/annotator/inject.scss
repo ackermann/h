@@ -7,22 +7,22 @@ $base-font-size: 14px;
 .annotator-adder {
   box-sizing: border-box;
   direction: ltr;
-  margin-left: -20px;
+  margin-left: -64px;
   margin-top: -50px;
-  padding: 2px 0;
-  width: 100px;
+  padding: 4px 0px 3px 0px;
   position: absolute;
   background: $white;
-  border: 2px solid $gray-light;
-  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.20);
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.15);
   z-index: 999;
 
   &:before {
     @include rotate(45deg);
     background: $white;
-    bottom: -6px;
-    border-bottom: 2px solid $gray;
-    border-right: 2px solid $gray;
+    bottom: -5px;
+    border-bottom: 1px solid rgba(0,0,0,0.20);
+    border-right: 1px solid rgba(0,0,0,0.20);
     content: "";
     display: block;
     height: 6px;
@@ -42,6 +42,7 @@ $base-font-size: 14px;
 
   .annotator-adder-action {
     float: left;
+    margin: 3px 10px;
 
     button {
       @include box-shadow(none);
@@ -61,7 +62,8 @@ $base-font-size: 14px;
 
     .adder-label {
       display: block;
-      font-size: 10px;
+      font-size: 11px;
+      font-family: sans-serif;
       color: $gray-light !important;
     }
 

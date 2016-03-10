@@ -45,12 +45,12 @@ module.exports = class Guest extends Annotator
     adder: '''
       <div class="annotator-adder">
         <div class="annotator-adder-action">
-          <button class="h-icon-annotate" data-action="comment"></button>
-          <label class="adder-label">Annotate</label>
+          <button id="adder-icon-annotate" class="h-icon-annotate" data-action="comment"></button>
+          <label for="adder-icon-annotate" class="adder-label">Annotate</label>
         </div>
         <div class="annotator-adder-action">
-          <button class="h-icon-highlight" data-action="highlight"></button>
-          <label class="adder-label">Highlight</label>
+          <button id="adder-icon-highlight" class="h-icon-highlight" data-action="highlight"></button>
+          <label for="adder-icon-highlight" class="adder-label">Highlight</label>
         </div>
       </div>
     '''
