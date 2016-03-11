@@ -360,8 +360,20 @@ module.exports = class Guest extends Annotator
       @onAdderClick event
     else
       # Show the adder button
+
+      adderPos = {}
+
+      # get the topmost area selected
+      adderPos.left =
+        @selectedRanges[0].getClientRects()[0].left +
+        (@selectedRanges[0].getClientRects()[0].width / 2) +
+        document.body.scrollLeft
+      adderPos.top =
+        @selectedRanges[0].getClientRects()[0].top +
+        document.body.scrollTop
+
       @adder
-        .css(Annotator.Util.mousePosition(event, @element[0]))
+        .css(adderPos)
         .show()
 
     true
