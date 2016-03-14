@@ -44,13 +44,15 @@ module.exports = class Guest extends Annotator
   html: extend {}, Annotator::html,
     adder: '''
       <div class="annotator-adder">
-        <div class="annotator-adder-action">
-          <button id="adder-icon-annotate" class="h-icon-annotate" data-action="comment"></button>
-          <label for="adder-icon-annotate" class="adder-label">Annotate</label>
-        </div>
-        <div class="annotator-adder-action">
-          <button id="adder-icon-highlight" class="h-icon-highlight" data-action="highlight"></button>
-          <label for="adder-icon-highlight" class="adder-label">Highlight</label>
+        <div class="adder-actions">
+          <div class="annotator-adder-action action-annotate">
+            <button id="adder-icon-annotate" class="h-icon-annotate" data-action="comment"></button>
+            <label for="adder-icon-annotate" class="adder-label">Annotate</label>
+          </div>
+          <div class="annotator-adder-action action-highlight">
+            <button id="adder-icon-highlight" class="h-icon-highlight" data-action="highlight"></button>
+            <label for="adder-icon-highlight" class="adder-label">Highlight</label>
+          </div>
         </div>
       </div>
     '''
