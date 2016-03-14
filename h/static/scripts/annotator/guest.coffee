@@ -349,7 +349,7 @@ module.exports = class Guest extends Annotator
 
     @selectedRanges = event.ranges
 
-    Annotator.$('.h-icon-note')
+    Annotator.$('.annotator-toolbar .h-icon-note')
       .attr('title', 'New Annotation')
       .removeClass('h-icon-note')
       .addClass('h-icon-annotate');
@@ -370,7 +370,7 @@ module.exports = class Guest extends Annotator
     @adder.hide()
     @selectedRanges = []
 
-    Annotator.$('.h-icon-annotate')
+    Annotator.$('.annotator-toolbar .h-icon-annotate')
       .attr('title', 'New Page Note')
       .removeClass('h-icon-annotate')
       .addClass('h-icon-note');
