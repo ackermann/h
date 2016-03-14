@@ -45,14 +45,12 @@ module.exports = class Guest extends Annotator
     adder: '''
       <div class="annotator-adder">
         <div class="annotator-adder-actions">
-          <div class="annotator-adder-action annotator-adder-action--annotate">
-            <button id="adder-icon-annotate" class="annotator-adder-action__button h-icon-annotate" data-action="comment"></button>
-            <label for="adder-icon-annotate" class="annotator-adder-action__label">Annotate</label>
-          </div>
-          <div class="annotator-adder-action annotator-adder-action--highlight">
-            <button id="adder-icon-highlight" class="annotator-adder-action__button h-icon-highlight" data-action="highlight"></button>
-            <label for="adder-icon-highlight" class="annotator-adder-action__label">Highlight</label>
-          </div>
+          <button class="annotator-adder-actions--annotate annotator-adder-actions__button h-icon-annotate" data-action="comment">
+            <span class="annotator-adder-actions__label" data-action="comment">Annotate</span>
+          </button>
+          <button class="annotator-adder-actions--highlight annotator-adder-actions__button h-icon-highlight" data-action="highlight">
+            <span class="annotator-adder-actions__label" data-action="highlight">Highlight</span>
+          </button>
         </div>
       </div>
     '''
@@ -435,6 +433,7 @@ module.exports = class Guest extends Annotator
     event.preventDefault?()
     event.stopPropagation?()
     @adder.hide()
+    console.log($(event.target).data('action'))
     switch $(event.target).data('action')
       when 'highlight'
         this.setVisibleHighlights true
