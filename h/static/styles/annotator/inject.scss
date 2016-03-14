@@ -16,77 +16,71 @@ $base-font-size: 14px;
   border-radius: 4px;
   box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.15);
   z-index: 999;
+}
 
-  &:before {
-    @include rotate(45deg);
-    background: $white;
-    bottom: -5px;
-    border-bottom: 1px solid rgba(0,0,0,0.20);
-    border-right: 1px solid rgba(0,0,0,0.20);
-    content: "";
-    display: block;
-    height: 6px;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
-    right: 0;
-    width: 6px;
-  }
+.annotator-adder:before {
+  @include rotate(45deg);
+  background: $white;
+  bottom: -5px;
+  border-bottom: 1px solid rgba(0,0,0,0.20);
+  border-right: 1px solid rgba(0,0,0,0.20);
+  content: "";
+  display: block;
+  height: 6px;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  right: 0;
+  width: 6px;
+}
 
-  .adder-actions {
-    &:hover {
-      .annotator-adder-action button {
-        color: $gray-light !important;
-      }
-    }
+.annotator-adder-actions:hover .annotator-adder-action__button {
+  color: $gray-light !important;
+}
 
-    .annotator-adder-action {
-      float: left;
+.annotator-adder-action {
+  float: left;
+}
 
-      button {
-        @include box-shadow(none);
-        display: inline-block;
-        font-family: h;
-        border: none;
-        cursor: pointer;
-        height: 100%;
-        width: 45px;
-        font-size: 18px;
-        margin: 2px 0px;
-        padding: 0;
-        text-align: center;
-        background: $white !important;
-        color: $gray-dark !important;
-      }
+.annotator-adder-action:hover .annotator-adder-action__label {
+  color: $gray-dark !important;
+}
 
-      .adder-label {
-        display: block;
-        font-size: 11px;
-        font-family: sans-serif;
-        color: $gray-light !important;
-        cursor: pointer;
-      }
+.annotator-adder-action:hover .annotator-adder-action__button {
+  color: $gray-dark !important;
+}
 
-      &:hover {
-        label {
-          color: $gray-dark !important;
-        }
+.annotator-adder-action--annotate {
+  margin-right: 10px;
+}
 
-        button {
-          color: $gray-dark !important;
-        }
-      }
-    }
+.annotator-adder-action--highlight {
+  margin-left: 10px;
+}
 
-    .action-annotate {
-      margin-right: 10px;
-    }
+.annotator-adder-action__button {
+  @include box-shadow(none);
+  display: inline-block;
+  font-family: h;
+  border: none;
+  cursor: pointer;
+  height: 100%;
+  width: 45px;
+  font-size: 18px;
+  margin: 2px 0px;
+  padding: 0;
+  text-align: center;
+  background: $white !important;
+  color: $gray-dark !important;
+}
 
-    .action-highlight {
-      margin-left: 10px;
-    }
-  }
+.annotator-adder-action__label {
+  display: block;
+  font-size: 11px;
+  font-family: sans-serif;
+  color: $gray-light !important;
+  cursor: pointer;
 }
 
 
