@@ -362,12 +362,13 @@ module.exports = class Guest extends Annotator
       # Show the adder button
       @adder
         .css(Annotator.Util.mousePosition(event, @element[0]))
-        .show()
+        .addClass('annotator-adder--active')
+        .show("fast")
 
     true
 
   onFailedSelection: (event) ->
-    @adder.hide()
+    @adder.hide("fast")
     @selectedRanges = []
 
     Annotator.$('.annotator-toolbar .h-icon-annotate')
@@ -432,7 +433,7 @@ module.exports = class Guest extends Annotator
   onAdderClick: (event) ->
     event.preventDefault?()
     event.stopPropagation?()
-    @adder.hide()
+    @adder.hide("fast")
     switch $(event.target).data('action')
       when 'highlight'
         this.setVisibleHighlights true

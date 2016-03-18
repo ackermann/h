@@ -13,8 +13,14 @@ $base-font-size: 14px;
   background: $white;
   border: 1px solid rgba(0,0,0,0.20);
   border-radius: 4px;
-  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.15);
+  box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.20);
   z-index: 999;
+  transition: none;
+}
+
+.annotator-adder--active {
+  transition: top 75ms ease-out,left 75ms ease-out;
+  animation: pop-upwards 180ms forwards linear;
 }
 
 .annotator-adder:before {
@@ -40,7 +46,7 @@ $base-font-size: 14px;
 }
 
 .annotator-adder-actions:hover .annotator-adder-actions__button {
-  color: $gray-light !important;
+  color: #A6A6A6 !important;
 }
 
 .annotator-adder-actions__button {
@@ -62,10 +68,10 @@ $base-font-size: 14px;
 }
 
 .annotator-adder-actions .annotator-adder-actions__button:hover {
-  color: $gray-dark !important;
+  color: #3F3F3F !important;
 
   .annotator-adder-actions__label {
-    color: $gray-dark !important;
+    color: #3F3F3F !important;
   }
 }
 
