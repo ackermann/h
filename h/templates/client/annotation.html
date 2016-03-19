@@ -78,7 +78,8 @@
              collapse="vm.collapseBody"
              collapsed-height="400"
              overflow-hysteresis="20">
-      <markdown ng-model="vm.form.text"
+      <markdown text="vm.form.text"
+                on-edit-text="vm.onEditText(text)"
                 read-only="!vm.editing()">
       </markdown>
     </excerpt>

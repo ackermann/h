@@ -66,7 +66,7 @@ describe('markdown', function () {
     it('should show the rendered view when readOnly is true', function () {
       var editor = util.createDirective(document, 'markdown', {
         readOnly: true,
-        ngModel: 'Hello World',
+        text: 'Hello World',
       });
       assert.isTrue(isHidden(inputElement(editor)));
       assert.isFalse(isHidden(viewElement(editor)));
@@ -75,7 +75,7 @@ describe('markdown', function () {
     it('should show the editor when readOnly is false', function () {
       var editor = util.createDirective(document, 'markdown', {
         readOnly: false,
-        ngModel: 'Hello World',
+        text: 'Hello World',
       });
       assert.isFalse(isHidden(inputElement(editor)));
       assert.isTrue(isHidden(viewElement(editor)));
@@ -86,7 +86,7 @@ describe('markdown', function () {
     it('should render input markdown', function () {
       var editor = util.createDirective(document, 'markdown', {
         readOnly: true,
-        ngModel: 'Hello World',
+        text: 'Hello World',
       });
       assert.equal(getRenderedHTML(editor), 'rendered:Hello World');
     });
@@ -96,7 +96,7 @@ describe('markdown', function () {
     it('should render LaTeX', function () {
       var editor = util.createDirective(document, 'markdown', {
         readOnly: true,
-        ngModel: '$$x*2$$',
+        text: '$$x*2$$',
       });
       assert.equal(getRenderedHTML(editor),
         'rendered:math:\\displaystyle {x*2}rendered:');
@@ -107,7 +107,7 @@ describe('markdown', function () {
     it('should apply formatting when clicking toolbar buttons', function () {
       var editor = util.createDirective(document, 'markdown', {
         readOnly: false,
-        ngModel: 'Hello World',
+        text: 'Hello World',
       });
       var input = inputElement(editor);
       var buttons = editor[0].querySelectorAll('.markdown-tools-button');
@@ -120,15 +120,31 @@ describe('markdown', function () {
   });
 
   describe('editing', function () {
-    it('should update the input model', function () {
+    it('should populate the input with the current text', function () {
       var editor = util.createDirective(document, 'markdown', {
         readOnly: false,
-        ngModel: 'Hello World',
+        text: 'initial comment',
+        onEditText: function () {},
+      });
+      var input = inputElement(editor);
+      assert.equal(input.value, 'initial comment');
+    });
+
+    it('should update the input model', function () {
+      var onEditText = sinon.stub();
+      var editor = util.createDirective(document, 'markdown', {
+        readOnly: false,
+        text: 'Hello World',
+        onEditText: {
+          args: ['text'],
+          callback: onEditText,
+        },
       });
       var input = inputElement(editor);
       input.value = 'new text';
       util.sendEvent(input, 'change');
-      assert.equal(editor.scope.ngModel, 'new text');
+      assert.called(onEditText);
+      assert.calledWith(onEditText, 'new text');
     });
   });
 });

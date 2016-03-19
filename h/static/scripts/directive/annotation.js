@@ -706,6 +706,10 @@ function AnnotationController(
     vm.canCollapseBody = canCollapse;
   };
 
+  vm.onEditText = function (text) {
+    vm.form.text = text;
+  };
+
   init();
 }
 
