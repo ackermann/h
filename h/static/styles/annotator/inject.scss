@@ -3,24 +3,31 @@
 
 $base-font-size: 14px;
 
+$adder-transition-duration: .2s;
+
 //ADDER////////////////////////////////
 .annotator-adder {
   box-sizing: border-box;
   direction: ltr;
   margin-top: -60px;
-  margin-left: -65px;
+  margin-left: -75px;
   position: absolute;
   background: $white;
   border: 1px solid rgba(0,0,0,0.20);
   border-radius: 4px;
-  box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.20);
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.20);
   z-index: 999;
-  transition: none;
+  transition: opacity $adder-transition-duration,
+              margin-top $adder-transition-duration,
+              box-shadow $adder-transition-duration;
+  opacity: 0.05;
 }
 
-.annotator-adder--active {
-  transition: top 75ms ease-out,left 75ms ease-out;
-  animation: pop-upwards 180ms forwards linear;
+// Make the adder slide up and fade in when it appears
+.annotator-adder.is-active {
+  opacity: 1.0;
+  margin-top: -65px;
+  box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.20);
 }
 
 .annotator-adder:before {
@@ -65,6 +72,8 @@ $base-font-size: 14px;
   padding-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
+
+  transition: color $adder-transition-duration;
 }
 
 .annotator-adder-actions .annotator-adder-actions__button:hover {
@@ -80,6 +89,7 @@ $base-font-size: 14px;
   margin: 2px 0px;
   font-family: sans-serif;
   color: $gray-light !important;
+  transition: color $adder-transition-duration;
 }
 
 

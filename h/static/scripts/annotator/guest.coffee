@@ -140,6 +140,19 @@ module.exports = class Guest extends Annotator
   _setupDocumentEvents: -> this
   _setupDynamicStyle: -> this
 
+  _showAdder: ->
+    @adder.show()
+    adder = @adder
+    setTimeout((->
+      adder.addClass('is-active')
+    ), 5)
+
+  _hideAdder: ->
+    @adder.removeClass('is-active')
+    setTimeout((->
+      @adder.hide()
+    ), 200)
+
   destroy: ->
     $('#annotator-dynamic-style').remove()
 
@@ -360,15 +373,13 @@ module.exports = class Guest extends Annotator
       @onAdderClick event
     else
       # Show the adder button
-      @adder
-        .css(Annotator.Util.mousePosition(event, @element[0]))
-        .addClass('annotator-adder--active')
-        .show("fast")
+      @adder.css(Annotator.Util.mousePosition(event, @element[0]))
+      @_showAdder()
 
     true
 
   onFailedSelection: (event) ->
-    @adder.hide("fast")
+    @_hideAdder()
     @selectedRanges = []
 
     Annotator.$('.annotator-toolbar .h-icon-annotate')
@@ -433,7 +444,7 @@ module.exports = class Guest extends Annotator
   onAdderClick: (event) ->
     event.preventDefault?()
     event.stopPropagation?()
-    @adder.hide("fast")
+    @_hideAdder()
     switch $(event.target).data('action')
       when 'highlight'
         this.setVisibleHighlights true
