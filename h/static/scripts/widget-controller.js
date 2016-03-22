@@ -209,6 +209,12 @@ module.exports = function WidgetController(
            !threading.idTable[firstKey(annotationUI.selectedAnnotationMap)];
   };
 
+  $scope.selectedAnnotationAvailable = function () {
+    return searchClients.length === 0 &&
+           annotationUI.hasSelectedAnnotations() &&
+           !!threading.idTable[firstKey(annotationUI.selectedAnnotationMap)];
+  };
+
   $rootScope.$on(events.BEFORE_ANNOTATION_CREATED, function (event, data) {
     if (data.$highlight || (data.references && data.references.length > 0)) {
       return;

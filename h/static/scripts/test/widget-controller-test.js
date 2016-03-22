@@ -308,5 +308,25 @@ describe('WidgetController', function () {
       $scope.$digest();
       assert.isFalse($scope.selectedAnnotationUnavailable());
     });
+
+    it('shows logged out message if selection is available', function () {
+      fakeAnnotationUI.selectedAnnotationMap = {'123': true};
+      fakeThreading.idTable = {'123': {}};
+      $scope.$digest();
+      assert.isTrue($scope.selectedAnnotationAvailable());
+    });
+
+    it('does not show loggedout message if selection is unavailable', function () {
+      fakeAnnotationUI.selectedAnnotationMap = {'missing': true};
+      fakeThreading.idTable = {'123': {}};
+      $scope.$digest();
+      assert.isFalse($scope.selectedAnnotationAvailable());
+    });
+
+    it('does not show loggedout message if there is no selection', function () {
+      fakeAnnotationUI.selectedAnnotationMap = null;
+      $scope.$digest();
+      assert.isFalse($scope.selectedAnnotationAvailable());
+    });
   });
 });
