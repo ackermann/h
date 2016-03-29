@@ -31,7 +31,7 @@ function groupIDFromSelection(selection, results) {
 // @ngInject
 module.exports = function WidgetController(
   $scope, $rootScope, annotationUI, crossframe, annotationMapper,
-  drafts, groups, streamer, streamFilter, store, threading
+  drafts, groups, settings, streamer, streamFilter, store, threading
 ) {
   $scope.threadRoot = threading.root;
   $scope.sortOptions = ['Newest', 'Oldest', 'Location'];
@@ -203,13 +203,22 @@ module.exports = function WidgetController(
     return annotation.$$tag in $scope.focusedAnnotations;
   };
 
-  $scope.selectedAnnotationUnavailable = function () {
-    return searchClients.length === 0 &&
-           annotationUI.hasSelectedAnnotations() &&
-           !threading.idTable[firstKey(annotationUI.selectedAnnotationMap)];
-  };
+  /**
+   * Display a call-to-action below the selected annotations if the user
+   * visits a direct link whilst signed out.
+   */
+  $scope.shouldShowLoggedOutMessage = function () {
+    if ($scope.auth.status !== 'signed-out') {
+      return false;
+    }
 
-  $scope.selectedAnnotationAvailable = function () {
+    // Did the user visit a direct link?
+    if (!settings.annotations) {
+      return false;
+    }
+
+    // Was the direct-linked annotation found? If so, since the user is
+    // signed out, that also implies that the annotation is public.
     return searchClients.length === 0 &&
            annotationUI.hasSelectedAnnotations() &&
            !!threading.idTable[firstKey(annotationUI.selectedAnnotationMap)];

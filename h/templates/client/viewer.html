@@ -40,7 +40,7 @@
       ng-repeat="child in threadRoot.children | orderBy : sort.predicate"
       ng-show="vm.shouldShow()">
   </li>
-  <li class="loggedout-message" ng-if="isSidebar && auth.status === 'signed-out' && settings.annotations && selectedAnnotationAvailable()" ng-cloak>
+  <li class="loggedout-message" ng-if="shouldShowLoggedOutMessage()" ng-cloak>
     This is a public annotation created with Hypothes.is
     <span class="loggedout-message-actions">
       <a class="loggedout-message-actions__link" href="{{ register_url }}" target="_blank">
