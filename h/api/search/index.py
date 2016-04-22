@@ -12,7 +12,7 @@ from h.api import presenters
 log = logging.getLogger(__name__)
 
 
-def index(es, annotation, request):
+def index(es, annotation_dict, request):
     """
     Index an annotation into the search index.
 
@@ -23,22 +23,19 @@ def index(es, annotation, request):
     :param es: the Elasticsearch client object to use
     :type es: h.api.search.Client
 
-    :param annotation: the annotation to index
-    :type annotation: h.api.models.Annotation
+    :param annotation_dict: the presented annotation to index
+    :type annotation_dict: dict
 
     """
-    annotation_dict = presenters.AnnotationJSONPresenter(
-        request, annotation).asdict()
-
     es.conn.index(
         index=es.index,
         doc_type=es.t.annotation,
         body=annotation_dict,
-        id=annotation_dict["id"],
+        id=annotation_dict['id'],
     )
 
 
-def delete(es, annotation):
+def delete(es, annotation_dict):
     """
     Delete an annotation from the search index.
 
@@ -48,17 +45,17 @@ def delete(es, annotation):
     :param es: the Elasticsearch client object to use
     :type es: h.api.search.Client
 
-    :param annotation: the annotation whose corresponding document to delete
-        from the search index
-    :type annotation: h.api.models.Annotation
+    :param annotation_dict: the presented annotation whose corresponding
+        document to delete from the search index
+    :type annotation_dict: dict
 
     """
     try:
         es.conn.delete(
             index=es.index,
             doc_type=es.t.annotation,
-            id=annotation.id,
+            id=annotation_dict['id'],
         )
     except elasticsearch.NotFoundError:
         log.exception('Tried to delete a nonexistent annotation from the '
-                      'search index, annotation id: %s', annotation.id)
+                      'search index, annotation id: %s', annotation_dict['id'])

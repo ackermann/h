@@ -10,48 +10,25 @@ from h.api.search import client
 from h.api.search import index
 
 
-@pytest.mark.usefixtures('presenters')
 class TestIndexAnnotation:
 
-    def test_it_presents_the_annotation(self, es, presenters):
-        request = mock.Mock()
-        annotation = mock.Mock()
-
-        index.index(es, annotation, request)
-
-        presenters.AnnotationJSONPresenter.assert_called_once_with(
-            request, annotation)
-
-    def test_it_indexes_the_annotation(self, es, presenters):
-        index.index(es, mock.Mock(), mock.Mock())
+    def test_it_indexes_the_annotation(self, es):
+        presented_ann = {'id': 'test_annotation_id'}
+        index.index(es, presented_ann, mock.Mock())
 
         es.conn.index.assert_called_once_with(
             index='hypothesis',
             doc_type='annotation',
-            body=presenters.AnnotationJSONPresenter.return_value.asdict.return_value,
+            body=presented_ann,
             id='test_annotation_id',
         )
-
-    @pytest.fixture
-    def presenters(self, patch):
-        presenters = patch('h.api.search.index.presenters')
-        presenter = presenters.AnnotationJSONPresenter.return_value
-        presenter.asdict.return_value = {
-            'id': 'test_annotation_id',
-            'target': [
-                {
-                    'source': 'http://example.com/example',
-                },
-            ],
-        }
-        return presenters
 
 
 @pytest.mark.usefixtures('log')
 class TestDeleteAnnotation:
 
     def test_it_deletes_the_annotation(self, es):
-        annotation = mock.Mock(id='test_annotation_id')
+        annotation = {'id': 'test_annotation_id'}
 
         index.delete(es, annotation)
 
@@ -65,7 +42,7 @@ class TestDeleteAnnotation:
         """NotFoundErrors from elasticsearch should be caught and logged."""
         es.conn.delete.side_effect = elasticsearch.NotFoundError()
 
-        index.delete(es, mock.Mock())
+        index.delete(es, {'id': '42'})
 
         assert log.exception.called
 
