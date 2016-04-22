@@ -30,9 +30,6 @@ def index(es, annotation, request):
     annotation_dict = presenters.AnnotationJSONPresenter(
         request, annotation).asdict()
 
-    annotation_dict['target'][0]['scope'] = [
-        annotation.target_uri_normalized]
-
     es.conn.index(
         index=es.index,
         doc_type=es.t.annotation,

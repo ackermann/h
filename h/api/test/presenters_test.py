@@ -141,19 +141,24 @@ class TestAnnotationBasePresenter(object):
 
     def test_target(self):
         request = DummyRequest()
-        ann = mock.Mock(target_uri='http://example.com',
+        ann = mock.Mock(target_uri='http://example.com/',
+                        target_uri_normalized='http://example.com',
                         target_selectors={'PositionSelector': {'start': 0, 'end': 12}})
 
-        expected = [{'source': 'http://example.com', 'selector': {'PositionSelector': {'start': 0, 'end': 12}}}]
+        expected = [{'source': 'http://example.com/',
+                     'scope': 'http://example.com',
+                     'selector': {'PositionSelector': {'start': 0, 'end': 12}}}]
         actual = AnnotationJSONPresenter(request, ann).target
         assert expected == actual
 
     def test_target_missing_selectors(self):
         request = DummyRequest()
-        ann = mock.Mock(target_uri='http://example.com',
+        ann = mock.Mock(target_uri='http://example.com/',
+                        target_uri_normalized='http://example.com',
                         target_selectors=None)
 
-        expected = [{'source': 'http://example.com'}]
+        expected = [{'source': 'http://example.com/',
+                     'scope': 'http://example.com'}]
         actual = AnnotationJSONPresenter(request, ann).target
         assert expected == actual
 
@@ -170,7 +175,8 @@ class TestAnnotationJSONPresenter(object):
                         created=datetime.datetime(2016, 2, 24, 18, 3, 25, 768),
                         updated=datetime.datetime(2016, 2, 29, 10, 24, 5, 564),
                         userid='acct:luke',
-                        target_uri='http://example.com',
+                        target_uri='http://example.com/',
+                        target_uri_normalized='http://example.com',
                         text='It is magical!',
                         tags=['magic'],
                         groupid='__world__',
@@ -185,7 +191,7 @@ class TestAnnotationJSONPresenter(object):
                     'created': '2016-02-24T18:03:25.000768+00:00',
                     'updated': '2016-02-29T10:24:05.000564+00:00',
                     'user': 'acct:luke',
-                    'uri': 'http://example.com',
+                    'uri': 'http://example.com/',
                     'text': 'It is magical!',
                     'tags': ['magic'],
                     'group': '__world__',
@@ -193,7 +199,8 @@ class TestAnnotationJSONPresenter(object):
                                     'admin': ['acct:luke'],
                                     'update': ['acct:luke'],
                                     'delete': ['acct:luke']},
-                    'target': [{'source': 'http://example.com',
+                    'target': [{'source': 'http://example.com/',
+                                'scope': 'http://example.com',
                                 'selector': [{'TestSelector': 'foobar'}]}],
                     'document': {'foo': 'bar'},
                     'links': {},
@@ -271,7 +278,8 @@ class TestAnnotationJSONLDPresenter(object):
             created=datetime.datetime(2016, 2, 24, 18, 3, 25, 768),
             updated=datetime.datetime(2016, 2, 29, 10, 24, 5, 564),
             userid='acct:luke',
-            target_uri='http://example.com',
+            target_uri='http://example.com/',
+            target_uri_normalized='http://example.com',
             text='It is magical!',
             tags=['magic'],
             target_selectors=[{'TestSelector': 'foobar'}])
@@ -288,7 +296,8 @@ class TestAnnotationJSONLDPresenter(object):
                      {'type': 'TextualBody',
                       'purpose': 'tagging',
                       'text': 'magic'}],
-            'target': [{'source': 'http://example.com',
+            'target': [{'source': 'http://example.com/',
+                        'scope': 'http://example.com',
                         'selector': [{'TestSelector': 'foobar'}]}]
         }
 

@@ -32,13 +32,6 @@ class TestIndexAnnotation:
             id='test_annotation_id',
         )
 
-    def test_it_inserts_the_source_field(self, es):
-        annotation = mock.Mock()
-
-        index.index(es, annotation, mock.Mock())
-
-        assert es.conn.index.call_args[1]['body']['target'][0]['scope'] == [annotation.target_uri_normalized]
-
     @pytest.fixture
     def presenters(self, patch):
         presenters = patch('h.api.search.index.presenters')

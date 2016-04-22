@@ -54,7 +54,8 @@ class AnnotationBasePresenter(object):
 
     @property
     def target(self):
-        target = {'source': self.annotation.target_uri}
+        target = {'source': self.annotation.target_uri,
+                  'scope': self.annotation.target_uri_normalized}
         if self.annotation.target_selectors:
             target['selector'] = self.annotation.target_selectors
 
