@@ -32,7 +32,7 @@ INSTALL_REQUIRES = [
     'PyJWT>=1.0.0,<2.0.0',
     'SQLAlchemy>=0.8.0',
     'alembic>=0.7.0',
-    'annotator>=0.14.2,<0.15',
+    'annotator==0.14.2',
     'blinker>=1.3,<1.4',
     'celery[redis]>=3.1.23,<3.2',
     'cryptacular>=1.4,<1.5',
@@ -126,6 +126,7 @@ class test(_test):
 
 if __name__ == "__main__":
     setup(name=NAME,
+          dependency_links = ['https://github.com/ackermann/annotator-store/tarball/master#egg=annotator-0.14.2'],
           version=VERSION,
           description=DESC,
           long_description=LONGDESC,
