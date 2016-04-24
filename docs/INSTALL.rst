@@ -13,7 +13,7 @@ itself) the instructions for configuring and deploying h are identical.
 In addition to the Docker container, h depends on the following services:
 
 -  An SQL database. We only officially support PostgreSQL_.
--  Elasticsearch_ v1.0+, with the `Elasticsearch ICU Analysis`_ plugin
+-  Elasticsearch_ v2.0+, with the `Elasticsearch ICU Analysis`_ plugin
    installed. Used for storing annotation data.
 -  RabbitMQ_, a robust message queue. Used for interprocess communication.
 -  Redis_, a fast key-value store. Used for persistent session storage.

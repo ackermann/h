@@ -1,5 +1,5 @@
 -  PostgreSQL_ 9.4+
--  Elasticsearch_ v1.0+, with the `Elasticsearch ICU Analysis`_ plugin
+-  Elasticsearch_ v2.0+, with the `Elasticsearch ICU Analysis`_ plugin
    installed
 -  RabbitMQ_ v3.5+
 -  Redis_ v2.4+
